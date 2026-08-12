@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEKKO-Prüfwerkzeug — Annahmen prüfen, Handlungsoptionen entwickeln</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦎</text></svg>">
+<style>
+  :root{
+    --ink:#1c2a26; --muted:#5b6b66; --bg:#f7faf8; --card:#ffffff;
+    --accent:#15803d; --accent-dark:#116233; --line:#dde5e1;
+    --warn-bg:#fff8e6; --warn-line:#e6c85c; --code-bg:#0f1a16; --code-ink:#d7e5de;
+    --tag-bg:#e8f3ec;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.55;font-size:16px}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 80px}
+  header{background:linear-gradient(160deg,#123f2a,#1d6b42);color:#fff;padding:44px 20px 36px}
+  header .wrap{padding-bottom:0}
+  h1{margin:0 0 8px;font-size:1.9rem;letter-spacing:.2px}
+  .sub{opacity:.92;max-width:640px;margin:0}
+  .aud{display:inline-block;margin-top:14px;background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 14px;font-size:.85rem}
+  nav{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 0}
+  nav a{color:#fff;text-decoration:none;font-size:.85rem;border:1px solid rgba(255,255,255,.4);
+    border-radius:6px;padding:5px 10px}
+  nav a:hover{background:rgba(255,255,255,.15)}
+  h2{margin:48px 0 6px;font-size:1.35rem;color:var(--accent-dark)}
+  h2 .lv{font-size:.7rem;vertical-align:middle;background:var(--accent);color:#fff;
+    border-radius:5px;padding:2px 8px;margin-right:8px;letter-spacing:.5px}
+  h3{margin:24px 0 6px;font-size:1.02rem}
+  p{margin:8px 0}
+  .lead{color:var(--muted)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:18px 20px;margin:14px 0}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--tag-bg)}
+  .rule{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;
+    padding:10px 14px;margin:10px 0;font-size:.92rem}
+  .rule b{color:#7a5b00}
+  .flow{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;margin:14px 0;overflow-x:auto;white-space:nowrap;
+    font-family:ui-monospace,Consolas,monospace;font-size:.85rem;color:var(--accent-dark)}
+  .flow .gate{color:#b4540a;font-weight:600}
+  label{display:block;font-weight:600;font-size:.9rem;margin:14px 0 4px}
+  label .opt{font-weight:400;color:var(--muted)}
+  textarea,input[type=text]{width:100%;border:1px solid var(--line);border-radius:8px;
+    padding:10px 12px;font:inherit;font-size:.92rem;background:#fff;color:var(--ink)}
+  textarea{min-height:110px;resize:vertical;font-family:ui-monospace,Consolas,monospace}
+  .hint{font-size:.82rem;color:var(--muted);margin:4px 0 0}
+  button{background:var(--accent);color:#fff;border:0;border-radius:8px;
+    padding:10px 18px;font:inherit;font-weight:600;cursor:pointer;margin-top:14px}
+  button:hover{background:var(--accent-dark)}
+  button.copy{background:#2d3b36;padding:6px 14px;font-size:.85rem;margin:10px 0 0}
+  pre.out{background:var(--code-bg);color:var(--code-ink);border-radius:10px;
+    padding:16px;font-size:.8rem;line-height:1.5;overflow-x:auto;white-space:pre-wrap;
+    word-break:break-word;display:none;margin:14px 0 0}
+  .ampel td:first-child{font-weight:700;white-space:nowrap}
+  .g{color:#15803d}.y{color:#b4540a}.r{color:#b91c1c}
+  .status-tag{display:inline-block;background:var(--tag-bg);border:1px solid var(--line);
+    border-radius:5px;padding:1px 8px;font-size:.82rem;font-family:ui-monospace,Consolas,monospace}
+  .empirie ul{margin:6px 0;padding-left:22px}
+  .empirie li{margin:4px 0}
+  footer{margin-top:60px;border-top:1px solid var(--line);padding-top:18px;
+    color:var(--muted);font-size:.85rem}
+  .motto{font-size:1.05rem;color:var(--ink);font-weight:600;margin-bottom:6px}
+  @media (max-width:600px){ h1{font-size:1.45rem} body{font-size:15px} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>🦎 GEKKO-Prüfwerkzeug</h1>
+    <p class="sub">Annahmen prüfen, bevor sie zu Anforderungen werden — und aus geprüften
+    Befunden Handlungsoptionen entwickeln, ohne die Grenze zur technischen Umsetzung zu verwischen.</p>
+    <span class="aud">Für das GEKKO-Projektteam · Qualitätssicherung der fachlichen Auftraggeberseite</span>
+    <nav>
+      <a href="#zweck">Zweck &amp; Grenze</a>
+      <a href="#ebene1">Ebene 1 · Annahme prüfen</a>
+      <a href="#ebene2">Ebene 2 · Handlungsoptionen</a>
+      <a href="#empirie">Was davon geprüft ist</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ================= ZWECK ================= -->
+<h2 id="zweck">Zweck und Grenze</h2>
+<p class="lead">Das klassische Problem: Eine Aussage aus einem Workshop wird zur „Erkenntnis“,
+die Erkenntnis zum Bedarf, der Bedarf zum Featurewunsch — und Monate später hat ein
+Dienstleister genau das gebaut, ohne dass jemand rekonstruieren kann, auf welcher
+Evidenz die Entscheidung beruhte.</p>
+
+<div class="card">
+  <p><b>Dieses Werkzeug verhindert, dass ungeprüfte Projektannahmen zu Anforderungen
+  an die Implementierungsfirma werden.</b></p>
+  <p>Es prüft und präzisiert den fachlichen Bedarf. Es spezifiziert keine technische
+  Lösung — technische Konzeption, Architektur und Umsetzung liegen beim
+  Implementierungspartner.</p>
+</div>
+
+<div class="flow">
+Quelle → Behauptung → <b>Prüfung (Ebene 1)</b> → Befund → Erfolgskriterium → <b>Handlungsoption (Ebene 2)</b> → <span class="gate">‖ Schnittstelle ‖</span> → technische Konzeption (Implementierungspartner)
+</div>
+
+<table>
+  <tr><th>Bleibt beim GEKKO-Projektteam</th><th>Liegt bei der Implementierungsfirma</th></tr>
+  <tr><td>Problem / fachlicher Bedarf</td><td>technische Lösung</td></tr>
+  <tr><td>Behauptungen, Provenienz, Gegenhypothesen</td><td>Architektur, Implementierung</td></tr>
+  <tr><td>Bruchbedingungen der Annahmen</td><td>technische Fehlerbehandlung</td></tr>
+  <tr><td>fachliche Erfolgskriterien, Nutzungs- und Akzeptanzanforderungen</td><td>technische Spezifikation und Tests</td></tr>
+  <tr><td>Handlungsoptionen als <i>Empfehlung</i></td><td>technische Bewertung und Entscheidung darüber</td></tr>
+</table>
+
+<!-- ================= EBENE 1 ================= -->
+<h2 id="ebene1"><span class="lv">EBENE 1</span>Annahme prüfen</h2>
+<p class="lead">Jede projektrelevante Aussage — aus Interviews, Workshops, Mentoren-Beiträgen
+oder KI-Antworten — wird in fünf Felder gelegt. Weniger reicht nicht (siehe
+<a href="#empirie">Empirie</a>).</p>
+
+<table>
+  <tr><th style="width:9.5em">Feld</th><th>Frage</th><th>Autorenregel</th></tr>
+  <tr><td><b>1 Behauptung</b></td><td>Was wird konkret behauptet?</td>
+      <td>Ein Satz. Keine Begründung, keine Empfehlung.</td></tr>
+  <tr><td><b>2 Kontext</b></td><td>Für welchen Betrieb, Prozess, Personenkreis, Zeitraum gilt es?</td>
+      <td>Geltungsangaben hierher, nicht in Feld&nbsp;3. Nicht ableitbar → „unklar“.</td></tr>
+  <tr><td><b>3 Evidenzbasis</b></td><td>Worauf beruht es — Erfahrung, Betriebsdaten, Vorschrift, Studie, KI-Antwort?</td>
+      <td>Herkunft <b>und</b> Qualitätsvermerk („Einzelaussage, keine Zahlen genannt“).</td></tr>
+  <tr><td><b>4 Gegenprobe</b></td><td>Welche realistische Situation könnte die Aussage schwächen?</td>
+      <td>Eine Frage, an der sich die Aussage bewähren muss.</td></tr>
+  <tr><td><b>5 Bruchbedingung</b></td><td>Woran würden wir erkennen, dass sie nicht mehr gilt?</td>
+      <td><b>Beobachtbarer Zustand / messbares Ereignis.</b> Bloße Verneinung ist ungültig.
+      Ehrliches „nicht formulierbar“ ist erlaubt.</td></tr>
+</table>
+
+<div class="rule"><b>Feld 3 ist das Feld, das man am ehesten weglässt — und ohne das nichts
+funktioniert.</b> Im Test war ohne Evidenzbasis keine einzige von 13 Aussagen für Dritte
+beurteilbar; mit Evidenzbasis alle 16.</div>
+
+<h3>Status einer Annahme</h3>
+<p>
+<span class="status-tag">berichtet</span> →
+<span class="status-tag">lokal berichtet</span> →
+<span class="status-tag">lokal bestätigt</span> →
+<span class="status-tag">mehrfach bewährt</span> ·
+daneben: <span class="status-tag">gebrochen</span> und
+<span class="status-tag">ungeklärt</span>
+</p>
+<p>Die entscheidende Grenze liegt zwischen <i>berichtet</i> und <i>bestätigt</i>:
+Wer über die eigene Maßnahme berichtet, ist kein unabhängiger Beleg für sie.
+Statuswechsel nach oben brauchen eine Quelle außerhalb der berichtenden Person.
+Widersprüchliche Befunde bleiben nebeneinander stehen — die Frage ist nicht
+„wer hat recht?“, sondern „welche Bedingungen unterscheiden die Fälle?“.</p>
+
+<h3>Prüf-Prompt erzeugen</h3>
+<div class="card">
+  <label for="e1-claims">Zu prüfende Aussagen <span class="opt">— eine pro Zeile, Format:
+  <code>Aussage | Quelle</code>. Leer lassen, um den Prompt ohne Material zu erzeugen
+  (Material dann im Chat nachreichen).</span></label>
+  <textarea id="e1-claims" placeholder="Viele Geringqualifizierte erkennen den Nutzen von Weiterbildung nicht. | Workshop W-02
+Weiterbildungsmentoring setzt in vielen Unternehmen zu spät an. | Interview I-04, Weiterbildungsmentor"></textarea>
+  <p class="hint">Eigene Zweifel oder Gegenargumente <b>nicht</b> in den Prompt schreiben —
+  sie würden das Gegenprobe-Feld der KI vorprägen. Für die eigene Auswertung getrennt notieren.</p>
+  <button onclick="buildE1()">Prüf-Prompt erzeugen</button>
+  <button class="copy" id="e1-copy" style="display:none" onclick="copyOut('e1-out',this)">Kopieren</button>
+  <pre class="out" id="e1-out"></pre>
+</div>
+
+<div class="rule">In ein <b>neues, eigenes KI-Fenster</b> einfügen — nicht in den Chat, in dem
+die Inhalte entstanden sind. Möglichst eine <b>andere KI</b> als die erzeugende
+(Modelle bewerten eigene Ausgaben nachsichtiger). Erwartete Antwort:
+„Verstanden. Gib mir das Material.“ — kommt stattdessen etwas anderes,
+Prompt erneut setzen oder Modell wechseln.</div>
+
+<h3>Ampel — wann tiefer prüfen?</h3>
+<table class="ampel">
+  <tr><td class="g">GRÜN</td><td>höchstens ein Befund, geringe Tragweite → entscheiden, fertig.</td></tr>
+  <tr><td class="y">GELB</td><td>zwei Befunde, mittlere Tragweite → optional tiefer prüfen.</td></tr>
+  <tr><td class="r">ROT</td><td>sicherer Widerspruch, Kernproblem — oder eigenes Zögern → volle Prüfung, ggf. zweites Modell.</td></tr>
+</table>
+
+<!-- ================= EBENE 2 ================= -->
+<h2 id="ebene2"><span class="lv">EBENE 2</span>Handlungsoptionen entwickeln</h2>
+<p class="lead">Aus geprüften Befunden werden fachliche Erfolgskriterien und Handlungsoptionen —
+mit Herkunft, Sicherheit und einem Status, der die Vertragsgrenze sichtbar hält.</p>
+
+<table>
+  <tr><th style="width:11em">Objekttyp</th><th>Bedeutung</th><th>Beispiel</th></tr>
+  <tr><td><b>Befund</b></td><td>Was die Prüfung ergeben hat</td>
+      <td>„Teilnahmehindernisse sind nicht hinreichend geklärt.“</td></tr>
+  <tr><td><b>Fachliches Erfolgskriterium</b></td><td>Woran fachlicher Erfolg erkennbar wäre</td>
+      <td>„Beschäftigte können nach dem Gespräch konkrete, für sie relevante
+      Weiterbildungsmöglichkeiten benennen.“</td></tr>
+  <tr><td><b>Handlungsoption /<br>Empfehlung</b></td><td>Mögliche Konsequenz — ausdrücklich unverbindlich
+      hinsichtlich technischer Umsetzung</td>
+      <td>„Eine geführte Bedarfserhebung könnte geeigneter sein als ein freies Chatfenster.“</td></tr>
+</table>
+
+<div class="rule"><b>Jede Handlungsoption trägt sichtbar:</b> „EMPFEHLUNG — keine Vorgabe.
+Beschreibt eine mögliche Konsequenz aus den vorliegenden Befunden. Keine technische
+Spezifikation; technische Bewertung und Umsetzung liegen beim Implementierungspartner.“
+Der Partner kann dann antworten: <i>übernommen · anders gelöst · technisch nicht
+sinnvoll · Rückfrage</i>.</div>
+
+<p>Lösungs<i>richtungen</i> sind erlaubt und erwünscht („geführte Interaktion statt
+freiem Chat“) — Implementierungs<i>entscheidungen</i> nicht (keine Architektur,
+kein Datenmodell, keine Modell- oder Technologiewahl).</p>
+
+<h3>Options-Prompt erzeugen</h3>
+<div class="card">
+  <label for="e2-befunde">Geprüfte Befunde <span class="opt">— einer pro Zeile, Format:
+  <code>B-01 | Befund | Status</code> (Status z.&nbsp;B. lokal bestätigt / berichtet / ungeklärt)</span></label>
+  <textarea id="e2-befunde" placeholder="B-017 | Viele Geringqualifizierte erkennen den Nutzen von Weiterbildung nicht — Gegenhypothese (Nutzen erkannt, aber Teilnahmebarrieren) ungeklärt. | berichtet
+B-021 | Ausbilder in KMU haben keine Prompting-Kenntnisse. | lokal bestätigt"></textarea>
+
+  <label for="e2-ziel">Fachliches Ziel / Bedarfspunkt <span class="opt">— wofür sollen Optionen entwickelt werden?</span></label>
+  <input type="text" id="e2-ziel" placeholder="z. B.: Bedarfsanalyse vor Mentoring-Beginn so gestalten, dass sie ohne KI-Vorkenntnisse durchführbar ist">
+
+  <label for="e2-rahmen">Rahmenbedingungen <span class="opt">(optional) — Nutzungs- und Akzeptanzanforderungen der Auftraggeberseite</span></label>
+  <textarea id="e2-rahmen" style="min-height:70px" placeholder="Bedienbar ohne Promptingkenntnisse; vorhandene betriebliche Hardware; Datenschutz; Herkunft kritischer Informationen muss nachvollziehbar sein"></textarea>
+
+  <button onclick="buildE2()">Options-Prompt erzeugen</button>
+  <button class="copy" id="e2-copy" style="display:none" onclick="copyOut('e2-out',this)">Kopieren</button>
+  <pre class="out" id="e2-out"></pre>
+</div>
+
+<!-- ================= EMPIRIE ================= -->
+<h2 id="empirie">Was davon geprüft ist — und was nicht</h2>
+<p class="lead">Dieses Werkzeug wendet seine eigene Regel auf sich selbst an.</p>
+
+<div class="card empirie">
+  <h3 style="margin-top:0">Empirisch geprüft</h3>
+  <p>Drei präregistrierte Tests (Kriterien vor den Läufen festgelegt, Auswertung mechanisch)
+  an 13, später 16 realen Aussagen aus Ausbildungspraxis und einem Mentoren-Praxisbeitrag,
+  mit drei unabhängigen KI-Systemen:</p>
+  <ul>
+    <li><b>Vier Felder reichen nicht:</b> ohne Evidenzbasis blieb in 12/13 Fällen
+        entscheidungsrelevante Information übrig; 0/13 Aussagen waren für Dritte beurteilbar.</li>
+    <li><b>Fünf Felder tragen:</b> kein Informationsverlust (0/13 bzw. 0/16), alle Aussagen beurteilbar.</li>
+    <li><b>Die Autorenregel für Bruchbedingungen wirkt:</b> leere Verneinungen von ~11/13 auf 0.</li>
+    <li><b>Das Evidenzfeld wird wirklich benutzt:</b> mit Quelle belegte Aussagen wurden anders
+        behandelt als unbelegte (3/3 gegenüber 12/13).</li>
+    <li><b>Empfehlungs-Abtrennung und Verweise</b> wurden von beiden unabhängigen Bearbeitern korrekt getroffen.</li>
+  </ul>
+  <h3>Konzept ohne Test</h3>
+  <ul>
+    <li>die Status-Leiter (plausibel, nicht am Material erprobt),</li>
+    <li>der Ebene-2-Ableitungsweg Befund → Erfolgskriterium → Option (folgt der Objekttyp-Trennung,
+        die Trennung selbst ist belegt — der Ableitungs-Prompt nicht),</li>
+    <li>Wiedervorlage/Statuspflege über Zeit.</li>
+  </ul>
+  <h3>Bekannte Grenzen</h3>
+  <ul>
+    <li>Aussagen mit Rechts-/Vorschriftenbezug: ungetestet.</li>
+    <li>KI-Systeme trennen „belegt“ von „unbelegt“, aber nicht „stark“ von „mittel belegt“ —
+        die feine Abstufung setzt ein Mensch.</li>
+    <li>Die Grenze „nicht übertragbar“ vs. „nicht entscheidbar“ war nicht in jedem Lauf stabil;
+        verlässlich ist die Nicht-Übernahme selbst. Wer zögert, prüft eine Stufe tiefer.</li>
+  </ul>
+</div>
+
+<footer>
+  <p class="motto">Die KI prüft und darf Konsequenzen als Empfehlung markieren.
+  Sie entscheidet weder über fachliche Freigabe noch über technische Umsetzung.
+  Das tut das Projektteam.</p>
+  <p>GEKKO-Prüfwerkzeug v1.0 · Stand 2026-08-12 · Es werden keine Daten gespeichert
+  oder übertragen — die Prompts entstehen vollständig im Browser.</p>
+</footer>
+
+</div><!-- /wrap -->
+
+<script>
+"use strict";
+
+function parseLines(id){
+  return document.getElementById(id).value.split("\n")
+    .map(function(l){return l.trim();}).filter(function(l){return l.length>0;});
+}
+function showOut(outId, btnId, text){
+  var pre=document.getElementById(outId);
+  pre.textContent=text; pre.style.display="block";
+  document.getElementById(btnId).style.display="inline-block";
+}
+function copyOut(outId, btn){
+  var text=document.getElementById(outId).textContent;
+  function done(){ btn.textContent="Kopiert ✓"; setTimeout(function(){btn.textContent="Kopieren";},1800); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done);
+  } else {
+    var ta=document.createElement("textarea"); ta.value=text;
+    document.body.appendChild(ta); ta.select();
+    document.execCommand("copy"); document.body.removeChild(ta); done();
+  }
+}
+
+/* ---------- Ebene 1: Pruef-Prompt ---------- */
+function buildE1(){
+  var lines=parseLines("e1-claims");
+  var kern=
+"Ab jetzt prüfst du nur. Du erzeugst nichts Neues.\n\n"+
+"Ich gebe dir Aussagen aus einem Projektkontext (betriebliche Weiterbildung / Mentoring / Logistik). Trage für jede Aussage genau fünf Felder ein:\n\n"+
+"1. Behauptung — was wird konkret behauptet? (ein Satz)\n"+
+"2. Kontext — für welchen Betrieb, Prozess, Personenkreis, Zeitraum gilt es, soweit aus dem Material ableitbar? Sonst: \"unklar\".\n"+
+"3. Evidenzbasis — worauf beruht es (Erfahrung, Betriebsdaten, Vorschrift, Studie, KI-Antwort), mit ehrlichem Qualitätsvermerk? Sonst: \"unklar\".\n"+
+"4. Gegenprobe — eine realistische Frage, an der sich die Aussage bewähren muss.\n"+
+"5. Bruchbedingung — ein BEOBACHTBARER Zustand oder ein MESSBARES Ereignis, bei dem die Aussage nicht mehr verwendet werden darf. Eine bloße Verneinung der Behauptung ist ungültig. Wenn du nichts Beobachtbares formulieren kannst, schreibe \"nicht formulierbar\".\n\n"+
+"Melde zusätzlich ehrlich für jede Aussage:\n"+
+"- Rest: entscheidungsrelevante Information, die in keines der fünf Felder passt.\n"+
+"- Doppelt: Information, die in mehr als ein Feld passt — nenne beide Felder.\n"+
+"- Verweis: hängt die Aussage an einer anderen der gegebenen Aussagen?\n"+
+"- Empfehlung: steckt ein Vorschlag darin, der keine Aussage über die Wirklichkeit ist? Trenne ihn ab.\n\n"+
+"Regeln: Arbeite nur mit dem, was ich dir gebe. Erfinde kein sechstes Feld. Repariere nichts. Keine Verbesserungsvorschläge, keine Zusammenfassung, keine technische Lösung. Wenn etwas unklar ist, schreibe \"unklar\", statt es plausibel zu machen. Du lieferst Befunde. Ich entscheide.";
+  var out;
+  if(lines.length===0){
+    out=kern+"\n\nAntworte jetzt nur: \"Verstanden. Gib mir das Material.\"";
+  } else {
+    var mat=lines.map(function(l,i){
+      var p=l.split("|");
+      var claim=p[0].trim();
+      var src=(p[1]||"Quelle nicht angegeben").trim();
+      return (i+1)+". [Quelle: "+src+"] \""+claim+"\"";
+    }).join("\n");
+    out=kern+"\n\nAUSSAGEN:\n\n"+mat+"\n\nBeginne mit Aussage 1.";
+  }
+  showOut("e1-out","e1-copy",out);
+}
+
+/* ---------- Ebene 2: Options-Prompt ---------- */
+function buildE2(){
+  var bef=parseLines("e2-befunde");
+  var ziel=document.getElementById("e2-ziel").value.trim();
+  var rahmen=document.getElementById("e2-rahmen").value.trim();
+  if(bef.length===0 || ziel===""){
+    showOut("e2-out","e2-copy","Bitte mindestens einen geprüften Befund und das fachliche Ziel eintragen.");
+    return;
+  }
+  var befTxt=bef.map(function(l){
+    var p=l.split("|");
+    var id=(p[0]||"B-?").trim();
+    var text=(p[1]||p[0]).trim();
+    var status=(p[2]||"Status nicht angegeben").trim();
+    return "- "+id+" ["+status+"]: "+text;
+  }).join("\n");
+  var out=
+"Du unterstützt ein Projektteam (Auftraggeberseite) dabei, aus geprüften Befunden Handlungsoptionen zu entwickeln. Du entscheidest nichts — du bereitest Entscheidungen vor.\n\n"+
+"GEPRÜFTE BEFUNDE (einzige Arbeitsgrundlage — nichts hinzuerfinden):\n"+befTxt+"\n\n"+
+"FACHLICHES ZIEL:\n"+ziel+"\n"+
+(rahmen? "\nRAHMENBEDINGUNGEN DER AUFTRAGGEBERSEITE:\n"+rahmen+"\n" : "")+
+"\nAUFGABE:\n\n"+
+"1. FACHLICHE ERFOLGSKRITERIEN: Leite aus den Befunden ab, woran das Projektteam fachlich erkennen würde, dass das Ziel erreicht ist. Beobachtbare Zustände, keine Technik.\n\n"+
+"2. HANDLUNGSOPTIONEN: Entwickle 2 bis 4 Optionen. Für jede Option:\n"+
+"   - Option (eine Lösungsrichtung, kurz)\n"+
+"   - Abgeleitet aus: welche Befund-IDs tragen sie?\n"+
+"   - Begründung: warum folgt sie aus diesen Befunden?\n"+
+"   - Sicherheit: hoch / mittel / niedrig — bezogen auf den Status der tragenden Befunde. Eine Option, die nur auf Befunden mit Status \"berichtet\" oder \"ungeklärt\" beruht, kann höchstens Sicherheit \"niedrig\" haben.\n"+
+"   - Was dagegen spricht: eine ernsthafte Gegenprobe.\n"+
+"   - Bruchbedingung: ein beobachtbarer Zustand, bei dem diese Option verworfen werden müsste.\n"+
+"   - Statuszeile, wörtlich: \"EMPFEHLUNG — keine Vorgabe. Technische Bewertung und Umsetzung liegen beim Implementierungspartner.\"\n\n"+
+"3. OFFEN: Welche Entscheidungen kann das Team auf dieser Befundlage noch NICHT treffen, und welcher Befund fehlt dafür?\n\n"+
+"HARTE GRENZEN:\n"+
+"- Lösungsrichtungen sind erlaubt (z. B. \"geführte Interaktion statt freiem Chat\"). Implementierungsentscheidungen sind verboten: keine Architektur, kein Datenmodell, keine Technologie- oder Modellwahl, keine konkrete KI-Funktion.\n"+
+"- Keine Option ohne Herkunft aus den Befunden. Wenn die Befunde für eine naheliegende Option nicht ausreichen, gehört das unter OFFEN — nicht erfunden.\n"+
+"- Befunde mit niedrigem Status nicht als Tatsachen behandeln.";
+  showOut("e2-out","e2-copy",out);
+}
+</script>
+</body>
+</html>
