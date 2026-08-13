@@ -63,6 +63,15 @@
     border-radius:5px;padding:1px 8px;font-size:.82rem;font-family:ui-monospace,Consolas,monospace}
   .empirie ul{margin:6px 0;padding-left:22px}
   .empirie li{margin:4px 0}
+  .bsp{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);
+    border-radius:10px;padding:16px 20px;margin:16px 0}
+  .bsp h3{margin-top:0}
+  .bsp blockquote{margin:12px 0;padding:10px 16px;background:var(--tag-bg);
+    border-radius:8px;font-size:1.02rem;font-weight:600}
+  .bsp blockquote .q{display:block;font-weight:400;font-size:.85rem;color:var(--muted);margin-top:6px}
+  .bsp ol{margin:8px 0;padding-left:22px}
+  .bsp ol li{margin:8px 0}
+  .bsp table{font-size:.88rem}
   footer{margin-top:60px;border-top:1px solid var(--line);padding-top:18px;
     color:var(--muted);font-size:.85rem}
   .motto{font-size:1.05rem;color:var(--ink);font-weight:600;margin-bottom:6px}
@@ -210,6 +219,58 @@ sinnvoll · Rückfrage</i>.</div>
 freiem Chat“) — Implementierungs<i>entscheidungen</i> nicht (keine Architektur,
 kein Datenmodell, keine Modell- oder Technologiewahl).</p>
 
+<div class="bsp">
+  <h3>Der Fall, in dem die KI es nicht entscheiden kann: Werturteile</h3>
+
+  <blockquote>„Ein Peer-Netzwerk aus mehreren Weiterbildungsmentoren mit
+  gegenseitigem Austausch ist sinnvoll.“
+  <span class="q">Aussage aus einem Praxisbeitrag zum Weiterbildungsmentoring</span></blockquote>
+
+  <p>Hier steckt der Vorschlag nicht <i>neben</i> der Aussage — er <b>ist</b> die
+  Aussage. „Ist sinnvoll“ ist keine Beobachtung. Im Test wurde dieser eine Satz
+  drei Mal unabhängig bearbeitet und drei Mal anders eingeordnet:</p>
+
+  <table>
+    <tr><th style="width:13em">Bearbeitung</th><th>Ergebnis</th></tr>
+    <tr><td>Prüf-KI A, Durchgang 1</td><td>Behauptung — keine Auffälligkeit gemeldet</td></tr>
+    <tr><td>Prüf-KI A, Durchgang 2</td><td>als <b>Empfehlung herausgetrennt</b> („ein Peer-Netzwerk
+        einrichten“) — die Aussage wandert komplett in den Empfehlungs-Topf</td></tr>
+    <tr><td>Prüf-KI B</td><td>bleibt <b>Behauptung</b>; die Doppeldeutigkeit wurde einmal
+        gemeldet, im zweiten Durchgang gar nicht mehr</td></tr>
+  </table>
+
+  <p>Zum Vergleich: Bei einer Aussage, in der der Vorschlag ein <i>abtrennbarer
+  Zusatz</i> war („… Idee: Hier könnte eine KI unterstützen“), waren sich alle vier
+  Bearbeitungen einig. Der Unterschied liegt nicht in der Sorgfalt, sondern im
+  Satztyp.</p>
+
+  <div class="rule"><b>Steckt die Bewertung im Satz selbst,</b> kann eine KI nicht
+  zuverlässig entscheiden, was er ist — und sie sagt es einem auch nicht verlässlich.
+  Die Kennzeichnung muss der Mensch setzen.</div>
+
+  <p>Ein Projekt- und Mentoring-Umfeld produziert solche Sätze laufend: „ein
+  Peer-Ansatz ist sinnvoll“, „frühzeitig ansetzen ist besser“, „das hat sich
+  bewährt“. Das ist der Normalfall im Protokoll, nicht die Ausnahme.</p>
+
+  <h3>Drei Handgriffe</h3>
+  <ol>
+    <li><b>Als normativ kennzeichnen.</b> Erkennungsmerkmal: Wörter wie
+        <i>sinnvoll, besser, notwendig, bewährt, richtig</i> — ohne dass gesagt wird,
+        woran man das misst.</li>
+    <li><b>In eine prüfbare Behauptung übersetzen.</b> Aus „ist sinnvoll“ wird:
+        <i>„Mentoren mit Peer-Netzwerk lösen Beratungsfälle schneller / berichten
+        seltener von Überforderung als Mentoren ohne Netzwerk.“</i> Jetzt gibt es
+        etwas zu beobachten.</li>
+    <li><b>Den Wunsch getrennt als Handlungsoption führen.</b> „Peer-Netzwerk
+        aufbauen“ ist eine legitime Empfehlung — sie darf nur nicht als Erkenntnis
+        auftreten.</li>
+  </ol>
+
+  <p>Und ein gutes Muster für Feld 5, das ohne jede Studie auskommt — aus demselben
+  Test: <i>„Wenn in eingerichteten Peer-Netzwerken kein tatsächlicher Austausch
+  stattfindet.“</i> Das kann man nach drei Monaten einfach nachsehen.</p>
+</div>
+
 <h3>Options-Prompt erzeugen</h3>
 <div class="card">
   <label for="e2-befunde">Geprüfte Befunde <span class="opt">— einer pro Zeile, Format:
@@ -245,6 +306,10 @@ B-021 | Ausbilder in KMU haben keine Prompting-Kenntnisse. | lokal bestätigt"><
     <li><b>Das Evidenzfeld wird wirklich benutzt:</b> mit Quelle belegte Aussagen wurden anders
         behandelt als unbelegte (3/3 gegenüber 12/13).</li>
     <li><b>Empfehlungs-Abtrennung und Verweise</b> wurden von beiden unabhängigen Bearbeitern korrekt getroffen.</li>
+    <li><b>Werturteile kann eine KI nicht zuverlässig einordnen</b> (Fallbeispiel oben):
+        derselbe Satz wurde in drei unabhängigen Bearbeitungen drei Mal verschieden
+        eingeordnet; die Mehrdeutigkeit wurde nur in einem von zwei Durchgängen gemeldet.
+        Daher die Kennzeichnungspflicht durch den Menschen.</li>
   </ul>
   <h3>Konzept ohne Test</h3>
   <ul>
