@@ -207,6 +207,27 @@ die Inhalte entstanden sind. Möglichst eine <b>andere KI</b> als die erzeugende
 „Verstanden. Gib mir das Material.“ — kommt stattdessen etwas anderes,
 Prompt erneut setzen oder Modell wechseln.</div>
 
+<h3>Welches Modell? — Eignungstest in einer Minute</h3>
+<p>Nicht jede KI taugt als Prüfer, und der Unterschied ist größer als gedacht: In einem Lauf
+über 16 Aussagen erkannten zwei von drei Modellen dieselben fünf Nicht-Tatsachenbehauptungen.
+Das dritte erkannte <b>keine einzige</b> und stufte Rollen-, Regel- und Bewertungssätze
+durchgehend als Tatsachenbehauptung ein — lauter grüne Haken statt Befunde. Das fällt nur
+auf, wenn man es prüft.</p>
+
+<div class="card">
+  <p><b>Der Test:</b> Geben Sie dem Modell mit dem Prüfauftrag diesen einen Satz:</p>
+  <blockquote style="margin:10px 0;padding:10px 16px;background:var(--tag-bg);border-radius:8px">
+  „KI nur als Unterstützung, um Input zu erhalten, sonst hauptsächlich nur mit Mensch.“</blockquote>
+  <p><b>Erwartete Antwort:</b> Das ist keine Tatsachenbehauptung, sondern eine Soll- oder
+  Gestaltungsbeschreibung — sie kann nicht wahr oder falsch sein. Kommt stattdessen eine
+  ausgefüllte Bruchbedingung und „Tatsachenbehauptung“, ist das Modell für diese Arbeit
+  ungeeignet. Anderes Modell nehmen.</p>
+</div>
+
+<p>Ein <b>zweiter Prüfer</b> bleibt sinnvoll für Aussagen, die eine Entscheidung tragen —
+nicht weil das Verfahren wackelt, sondern weil bei Entscheidungen ohnehin zwei hinsehen
+sollten.</p>
+
 <h3>Ampel — wann tiefer prüfen?</h3>
 <table class="ampel">
   <tr><td class="g">GRÜN</td><td>höchstens ein Befund, geringe Tragweite → entscheiden, fertig.</td></tr>
@@ -318,6 +339,15 @@ kein Datenmodell, keine Modell- oder Technologiewahl).</p>
   <i>„Nach Einführung des Mentorings meldeten sich an Standort A doppelt so viele
   Beschäftigte zu Kursen an wie im Vorjahr.“</i> Das ist prüfbar. Das andere ist eine
   Absichtserklärung.</p>
+
+  <blockquote style="font-weight:600">Die Quelle belegt eine geäußerte Präferenz
+  beziehungsweise eine Gestaltungsanforderung, nicht deren sachliche Richtigkeit.
+  <span class="q">Formulierung aus einem Prüflauf an echtem Projektmaterial</span></blockquote>
+
+  <p>Wer diesen Satz im Kopf hat, kann Befund und Setzung an jedem Satz trennen: Dass jemand
+  etwas gesagt hat, ist immer belegbar. Ob es stimmt, steht damit noch gar nicht zur Debatte —
+  bei einer Setzung stellt sich die Frage sogar grundsätzlich nicht.
+  <b>Befunde prüft man. Setzungen beschließt man.</b></p>
 </div>
 
 <h3 class="wz">Options-Prompt erzeugen</h3>
@@ -356,10 +386,13 @@ B-021 | Ausbilder in KMU haben keine Prompting-Kenntnisse. | lokal bestätigt"><
     <li><b>Das Evidenzfeld wird wirklich benutzt:</b> mit Quelle belegte Aussagen wurden anders
         behandelt als unbelegte (3/3 gegenüber 12/13).</li>
     <li><b>Empfehlungs-Abtrennung und Verweise</b> wurden von beiden unabhängigen Bearbeitern korrekt getroffen.</li>
-    <li><b>Werturteile kann eine KI nicht zuverlässig einordnen</b> (Fallbeispiel oben):
+    <li><b>Werturteile werden nicht von jedem Modell erkannt</b> (Fallbeispiel oben):
         derselbe Satz wurde in drei unabhängigen Bearbeitungen drei Mal verschieden
-        eingeordnet; die Mehrdeutigkeit wurde nur in einem von zwei Durchgängen gemeldet.
-        Daher die Kennzeichnungspflicht durch den Menschen.</li>
+        eingeordnet. In einem späteren Lauf über 16 Aussagen stimmten dagegen zwei von
+        drei Modellen vollständig überein (16/16), das dritte erkannte keine einzige
+        Nicht-Tatsachenbehauptung. Nicht das Verfahren ist unzuverlässig, sondern die
+        Modellwahl entscheidet — daher der Eignungstest in Ebene 1 und die
+        Kennzeichnung durch den Menschen bei allem, was eine Entscheidung trägt.</li>
     <li><b>Die Struktur hält auch in der Logistik und bei 50 Aussagen:</b> Restinformation
         2/50, alle 50 beurteilbar, keine leeren Verneinungen. Der vorab vermutete
         Schwachpunkt — Mengengerüst und Anlagenbezug („bei 800 Picks/Stunde“) als eigener
