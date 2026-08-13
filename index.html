@@ -85,7 +85,7 @@
     <h1>🦎 GEKKO-Prüfwerkzeug</h1>
     <p class="sub">Annahmen prüfen, bevor sie zu Anforderungen werden — und aus geprüften
     Befunden Handlungsoptionen entwickeln, ohne die Grenze zur technischen Umsetzung zu verwischen.</p>
-    <span class="aud">Für das GEKKO-Projektteam · Qualitätssicherung der fachlichen Auftraggeberseite</span>
+    <span class="aud">Für das GEKKO-Projektteam · Qualitätssicherung des fachlichen Bedarfs</span>
     <nav>
       <a href="#zweck">Zweck &amp; Grenze</a>
       <a href="#ebene1">Ebene 1 · Annahme prüfen</a>
@@ -106,7 +106,7 @@ Evidenz die Entscheidung beruhte.</p>
 
 <div class="card">
   <p><b>Dieses Werkzeug verhindert, dass ungeprüfte Projektannahmen zu Anforderungen
-  an die Implementierungsfirma werden.</b></p>
+  an die Umsetzung werden.</b></p>
   <p>Es prüft und präzisiert den fachlichen Bedarf. Es spezifiziert keine technische
   Lösung — technische Konzeption, Architektur und Umsetzung liegen beim
   Implementierungspartner.</p>
@@ -272,7 +272,7 @@ B-021 | Ausbilder in KMU haben keine Prompting-Kenntnisse. | lokal bestätigt"><
   <label for="e2-ziel">Fachliches Ziel / Bedarfspunkt <span class="opt">— wofür sollen Optionen entwickelt werden?</span></label>
   <input type="text" id="e2-ziel" placeholder="z. B.: Bedarfsanalyse vor Mentoring-Beginn so gestalten, dass sie ohne KI-Vorkenntnisse durchführbar ist">
 
-  <label for="e2-rahmen">Rahmenbedingungen <span class="opt">(optional) — Nutzungs- und Akzeptanzanforderungen der Auftraggeberseite</span></label>
+  <label for="e2-rahmen">Rahmenbedingungen <span class="opt">(optional) — Nutzungs- und Akzeptanzanforderungen aus fachlicher Sicht</span></label>
   <textarea id="e2-rahmen" style="min-height:70px" placeholder="Bedienbar ohne Promptingkenntnisse; vorhandene betriebliche Hardware; Datenschutz; Herkunft kritischer Informationen muss nachvollziehbar sein"></textarea>
 
   <button onclick="buildE2()">Options-Prompt erzeugen</button>
@@ -402,7 +402,7 @@ function buildE2(){
     return "- "+id+" ["+status+"]: "+text;
   }).join("\n");
   var out=
-"Du unterstützt ein Projektteam (Auftraggeberseite) dabei, aus geprüften Befunden Handlungsoptionen zu entwickeln. Du entscheidest nichts — du bereitest Entscheidungen vor.\n\n"+
+"Du unterstützt ein Projektteam dabei, aus geprüften Befunden Handlungsoptionen zu entwickeln. Du entscheidest nichts — du bereitest Entscheidungen vor.\n\n"+
 "GEPRÜFTE BEFUNDE (einzige Arbeitsgrundlage — nichts hinzuerfinden):\n"+befTxt+"\n\n"+
 "FACHLICHES ZIEL:\n"+ziel+"\n"+
 (rahmen? "\nRAHMENBEDINGUNGEN DER AUFTRAGGEBERSEITE:\n"+rahmen+"\n" : "")+
