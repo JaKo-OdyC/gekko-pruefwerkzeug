@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handzettel · Schwieriger Fall — Lage klären, Weg wählen</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦎</text></svg>">
+<style>
+  :root{
+    --ink:#1c2a26; --muted:#5b6b66; --bg:#f7faf8; --card:#fff;
+    --accent:#15803d; --accent-dark:#116233; --line:#c9d6d0; --tag:#e8f3ec;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.45;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .blatt{max-width:820px;margin:0 auto;padding:26px 24px 60px}
+  .kopf{border-bottom:2px solid var(--accent);padding-bottom:12px;margin-bottom:6px}
+  h1{margin:0 0 4px;font-size:1.45rem;color:var(--accent-dark)}
+  .unter{margin:0;color:var(--muted);font-size:.9rem}
+  .sonde{display:inline-block;margin-top:10px;background:#fff8e6;border:1px solid #e6c85c;
+    border-radius:6px;padding:4px 10px;font-size:.8rem;color:#7a5b00}
+  .meta{display:flex;gap:14px;flex-wrap:wrap;margin:16px 0 6px}
+  .meta div{flex:1 1 150px}
+  h2{font-size:1.05rem;margin:26px 0 4px;color:var(--accent-dark);
+    border-bottom:1px solid var(--line);padding-bottom:4px}
+  h2 .n{display:inline-block;background:var(--accent);color:#fff;border-radius:5px;
+    padding:1px 8px;font-size:.75rem;margin-right:8px;vertical-align:middle}
+  .frage{font-weight:600;margin:14px 0 2px;font-size:.95rem}
+  .hilf{color:var(--muted);font-size:.82rem;margin:0 0 4px}
+  .lin{border-bottom:1px solid var(--line);height:1.7em}
+  .lin.k{height:1.5em}
+  .box{border:1px solid var(--line);border-radius:8px;background:var(--card);padding:12px 14px;margin:8px 0}
+  .wahl{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem;margin:4px 0 2px}
+  .weg{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;
+    background:var(--card);padding:12px 14px;margin:10px 0}
+  .weg h3{margin:0 0 2px;font-size:1rem}
+  .weg .was{color:var(--muted);font-size:.84rem;margin:0 0 8px}
+  .sp{display:flex;gap:14px;flex-wrap:wrap}
+  .sp>div{flex:1 1 220px}
+  .klein{font-size:.85rem}
+  .aus{background:var(--tag);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-top:26px}
+  .aus h2{margin-top:0;border:0}
+  footer{margin-top:26px;border-top:1px solid var(--line);padding-top:12px;
+    color:var(--muted);font-size:.8rem}
+  a{color:var(--accent-dark)}
+  .drucken{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:9px 16px;
+    font:inherit;font-weight:600;cursor:pointer;margin-top:12px}
+  .drucken:hover{background:var(--accent-dark)}
+
+  @media print{
+    @page{size:A4;margin:14mm}
+    body{background:#fff;font-size:11.5pt;line-height:1.35}
+    .blatt{max-width:none;padding:0}
+    .drucken,.nodruck{display:none}
+    .box,.weg,.aus{background:#fff;break-inside:avoid}
+    h2{break-after:avoid}
+    .seite2{break-before:page}
+    .aus{break-before:page}
+    footer{margin-top:14px}
+    /* Teil 2 passt sonst um wenige Millimeter nicht auf eine Seite —
+       enger setzen statt Schreibraum wegnehmen */
+    .weg{padding:9px 12px;margin:7px 0}
+    .weg .was{margin-bottom:5px}
+    h2{margin:16px 0 3px}
+    .frage{margin:10px 0 1px}
+  }
+</style>
+</head>
+<body>
+<div class="blatt">
+
+<div class="kopf">
+  <h1>Schwieriger Fall — Lage klären, Weg wählen</h1>
+  <p class="unter">Handzettel für das Gespräch. Auszufüllen von Hand, gemeinsam.</p>
+  <span class="sonde">SONDE · befristeter Probelauf, kein Produktbaustein. Dient nur der Frage,
+  ob diese Sortierung im Alltag hilft.</span>
+</div>
+
+<div class="meta">
+  <div><span class="klein">Fall-Kürzel</span><div class="lin k"></div></div>
+  <div><span class="klein">Datum</span><div class="lin k"></div></div>
+  <div><span class="klein">Wer war dabei</span><div class="lin k"></div></div>
+</div>
+
+<!-- ============ TEIL 1 ============ -->
+<h2><span class="n">TEIL 1</span>Die Lage</h2>
+<p class="hilf">Erst beschreiben, dann erklären. Was Sie nicht wissen, bleibt leer —
+„weiß ich nicht“ ist eine gültige Antwort und oft die wichtigste.</p>
+
+<div class="box">
+  <p class="frage">1 · Was liegt an?</p>
+  <p class="hilf">In einem Satz, so wie es sich zeigt. Noch keine Erklärung, noch keine Lösung.</p>
+  <div class="lin"></div><div class="lin"></div>
+
+  <p class="frage">2 · Wer, wo, seit wann?</p>
+  <p class="hilf">Person oder Gruppe · Bereich, Schicht, Standort · seit wann geht das so.</p>
+  <div class="lin"></div><div class="lin"></div>
+
+  <p class="frage">3 · Woher weiß ich das?</p>
+  <p class="hilf">Ankreuzen, was zutrifft — und darunter trennen: Was ist gesichert, was ist meine Deutung?</p>
+  <div class="wahl">
+    <span>☐ selbst beobachtet</span>
+    <span>☐ mir direkt gesagt worden</span>
+    <span>☐ von Dritten gehört</span>
+    <span>☐ aus Unterlagen</span>
+    <span>☐ vermutet</span>
+  </div>
+  <div class="lin"></div><div class="lin"></div>
+
+  <p class="frage">4 · Was könnte auch dahinterstecken?</p>
+  <p class="hilf">Mindestens eine andere Erklärung als die erste, die einem einfällt.
+  Beispiel: Nicht „sieht den Nutzen nicht“, sondern vielleicht Schicht, Kosten, frühere Erfahrung, Scham.</p>
+  <div class="lin"></div><div class="lin"></div>
+
+  <p class="frage">5 · Woran merke ich, dass ich hier nicht weiterkomme?</p>
+  <p class="hilf">Etwas Beobachtbares, kein Gefühl — z. B. „nach dem dritten Gespräch keine Rückmeldung“.
+  Und: an wen gebe ich dann ab?</p>
+  <div class="lin"></div><div class="lin"></div>
+</div>
+
+<!-- ============ TEIL 2 ============ -->
+<div class="seite2">
+<h2><span class="n">TEIL 2</span>Drei Wege</h2>
+<p class="hilf">Nicht drei Varianten desselben Zugs, sondern drei verschiedene Sorten.
+Alle drei kurz durchdenken — auch die, die zuerst unpassend wirkt.</p>
+
+<div class="weg">
+  <h3>A · Am Menschen weiterarbeiten</h3>
+  <p class="was">Gespräch, Motivation, Entwicklungsmöglichkeiten zeigen, begleiten</p>
+  <p class="frage klein">Was würde ich konkret tun oder sagen?</p>
+  <div class="lin"></div><div class="lin"></div>
+  <div class="sp">
+    <div><p class="frage klein">Aufwand</p><div class="lin k"></div></div>
+    <div><p class="frage klein">Was müsste ich vorher wissen?</p><div class="lin k"></div></div>
+  </div>
+</div>
+
+<div class="weg">
+  <h3>B · Am Rahmen arbeiten</h3>
+  <p class="was">Zeit, Format, Ort, Absprache mit Vorgesetzten, Planung der Weiterbildung</p>
+  <p class="frage klein">Was würde ich konkret ändern?</p>
+  <div class="lin"></div><div class="lin"></div>
+  <div class="sp">
+    <div><p class="frage klein">Aufwand</p><div class="lin k"></div></div>
+    <div><p class="frage klein">Was müsste ich vorher wissen?</p><div class="lin k"></div></div>
+  </div>
+</div>
+
+<div class="weg">
+  <h3>C · Weitergeben oder Hilfe holen</h3>
+  <p class="was">An Fachstelle, Vorgesetzte, Kollegin im Mentoren-Netzwerk, externe Beratung</p>
+  <p class="frage klein">An wen — und mit welcher Frage?</p>
+  <div class="lin"></div><div class="lin"></div>
+  <div class="sp">
+    <div><p class="frage klein">Aufwand</p><div class="lin k"></div></div>
+    <div><p class="frage klein">Was müsste ich vorher wissen?</p><div class="lin k"></div></div>
+  </div>
+</div>
+
+<!-- ============ TEIL 3 ============ -->
+<h2><span class="n">TEIL 3</span>Entscheidung</h2>
+<div class="box">
+  <div class="wahl"><b>Ich gehe Weg:</b> <span>☐ A</span> <span>☐ B</span> <span>☐ C</span>
+    <span>☐ mehreres, in dieser Reihenfolge: ____________</span></div>
+  <p class="frage">weil …</p>
+  <div class="lin"></div>
+  <div class="sp">
+    <div><p class="frage klein">Nächster Schritt</p><div class="lin"></div></div>
+    <div><p class="frage klein">bis wann</p><div class="lin"></div></div>
+  </div>
+  <p class="frage">Woran würde ich merken, dass es gewirkt hat?</p>
+  <p class="hilf">Etwas, das man in vier Wochen nachsehen kann.</p>
+  <div class="lin"></div>
+</div>
+</div><!-- /seite2 -->
+
+<!-- ============ AUSWERTUNG ============ -->
+<div class="aus">
+  <h2>Nach dem Gespräch — nur für das Projektteam</h2>
+  <p class="hilf">Nicht vom Mentor auszufüllen. Diese vier Fragen entscheiden, ob aus der
+  Sonde etwas wird.</p>
+
+  <p class="frage klein">1 · Welches Feld war schwer auszufüllen — und warum?</p>
+  <div class="lin"></div><div class="lin"></div>
+
+  <p class="frage klein">2 · Wo hat die Sortierung geholfen? Wo war sie überflüssig?</p>
+  <div class="lin"></div><div class="lin"></div>
+
+  <p class="frage klein">3 · Hätte der Mentor diesen Fall auch ohne den Zettel so sortiert?</p>
+  <div class="lin"></div>
+
+  <p class="frage klein">4 · Würde er den Zettel beim nächsten schwierigen Fall von sich aus
+  wieder nehmen? <span style="font-weight:400;color:var(--muted)">— die eigentliche Frage</span></p>
+  <div class="wahl"><span>☐ ja</span> <span>☐ nein</span> <span>☐ nur bei bestimmten Fällen, nämlich:</span></div>
+  <div class="lin"></div>
+</div>
+
+<button class="drucken nodruck" onclick="window.print()">Drucken</button>
+
+<footer>
+  <p><b>Sonde · Stand 2026-08-13.</b> Befristeter Probelauf zur Frage, ob diese Sortierung
+  im Alltag hilft. Ausdrücklich kein Produktbaustein und keine technische Vorgabe —
+  Konzeption und Umsetzung liegen beim Implementierungspartner.</p>
+  <p class="nodruck">Die Fünf-Felder-Logik und die Wege A/B/C stammen aus dem
+  <a href="./">GEKKO-Prüfwerkzeug</a> bzw. aus den Tätigkeitsfeldern des Workshops.
+  Es werden keine Daten gespeichert oder übertragen — dieser Zettel ist zum Ausdrucken gedacht.</p>
+</footer>
+
+</div>
+</body>
+</html>
