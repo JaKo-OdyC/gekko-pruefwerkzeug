@@ -75,6 +75,18 @@
   footer{margin-top:60px;border-top:1px solid var(--line);padding-top:18px;
     color:var(--muted);font-size:.85rem}
   .motto{font-size:1.05rem;color:var(--ink);font-weight:600;margin-bottom:6px}
+  .modus{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.45);
+    color:#fff;border-radius:8px;padding:7px 14px;font-size:.85rem;font-weight:600;
+    cursor:pointer;margin:22px 0 0}
+  .modus:hover{background:rgba(255,255,255,.26)}
+  /* Kompaktmodus: nur die beiden Werkzeuge, alle Erklaerungen aus */
+  body.kompakt #inhalt > *{display:none}
+  body.kompakt #inhalt > .wz{display:block}
+  body.kompakt header nav,
+  body.kompakt header .sub,
+  body.kompakt header .aud{display:none}
+  body.kompakt header{padding:26px 20px 22px}
+  body.kompakt #inhalt > h2.wz{margin-top:30px}
   @media (max-width:600px){ h1{font-size:1.45rem} body{font-size:15px} }
   /* Schmale Schirme: Tabellen scrollen in sich, statt die Seite zu sprengen */
   @media (max-width:768px){
@@ -97,10 +109,11 @@
       <a href="#ebene2">Ebene 2 · Handlungsoptionen</a>
       <a href="#empirie">Was davon geprüft ist</a>
     </nav>
+    <button class="modus" id="modus" onclick="toggleModus()">Nur Werkzeug</button>
   </div>
 </header>
 
-<div class="wrap">
+<div class="wrap" id="inhalt">
 
 <!-- ================= ZWECK ================= -->
 <h2 id="zweck">Zweck und Grenze</h2>
@@ -122,7 +135,7 @@ Quelle → Behauptung → <b>Prüfung (Ebene 1)</b> → Befund → Erfolgskriter
 </div>
 
 <!-- ================= EBENE 1 ================= -->
-<h2 id="ebene1"><span class="lv">EBENE 1</span>Annahme prüfen</h2>
+<h2 id="ebene1" class="wz"><span class="lv">EBENE 1</span>Annahme prüfen</h2>
 <p class="lead">Jede projektrelevante Aussage — aus Interviews, Workshops, Mentoren-Beiträgen
 oder KI-Antworten — wird in fünf Felder gelegt. Weniger reicht nicht (siehe
 <a href="#empirie">Empirie</a>).</p>
@@ -174,8 +187,8 @@ Statuswechsel nach oben brauchen eine Quelle außerhalb der berichtenden Person.
 Widersprüchliche Befunde bleiben nebeneinander stehen — die Frage ist nicht
 „wer hat recht?“, sondern „welche Bedingungen unterscheiden die Fälle?“.</p>
 
-<h3>Prüf-Prompt erzeugen</h3>
-<div class="card">
+<h3 class="wz">Prüf-Prompt erzeugen</h3>
+<div class="card wz">
   <label for="e1-claims">Zu prüfende Aussagen <span class="opt">— eine pro Zeile, Format:
   <code>Aussage | Quelle</code>. Leer lassen, um den Prompt ohne Material zu erzeugen
   (Material dann im Chat nachreichen).</span></label>
@@ -202,7 +215,7 @@ Prompt erneut setzen oder Modell wechseln.</div>
 </table>
 
 <!-- ================= EBENE 2 ================= -->
-<h2 id="ebene2"><span class="lv">EBENE 2</span>Handlungsoptionen entwickeln</h2>
+<h2 id="ebene2" class="wz"><span class="lv">EBENE 2</span>Handlungsoptionen entwickeln</h2>
 <p class="lead">Aus geprüften Befunden werden fachliche Erfolgskriterien und Handlungsoptionen —
 mit Herkunft, Sicherheit und einem Status, der die Vertragsgrenze sichtbar hält.</p>
 
@@ -307,8 +320,8 @@ kein Datenmodell, keine Modell- oder Technologiewahl).</p>
   Absichtserklärung.</p>
 </div>
 
-<h3>Options-Prompt erzeugen</h3>
-<div class="card">
+<h3 class="wz">Options-Prompt erzeugen</h3>
+<div class="card wz">
   <label for="e2-befunde">Geprüfte Befunde <span class="opt">— einer pro Zeile, Format:
   <code>B-01 | Befund | Status</code> (Status z.&nbsp;B. lokal bestätigt / berichtet / ungeklärt)</span></label>
   <textarea id="e2-befunde" placeholder="B-017 | Viele Geringqualifizierte erkennen den Nutzen von Weiterbildung nicht — Gegenhypothese (Nutzen erkannt, aber Teilnahmebarrieren) ungeklärt. | berichtet
@@ -393,14 +406,31 @@ B-021 | Ausbilder in KMU haben keine Prompting-Kenntnisse. | lokal bestätigt"><
   <p class="motto">Die KI prüft und darf Konsequenzen als Empfehlung markieren.
   Sie entscheidet weder über fachliche Freigabe noch über technische Umsetzung.
   Das tut das Projektteam.</p>
-  <p>GEKKO-Prüfwerkzeug v1.1 · Stand 2026-08-13 · Es werden keine Daten gespeichert
-  oder übertragen — die Prompts entstehen vollständig im Browser.</p>
+  <p>GEKKO-Prüfwerkzeug v1.1 · Stand 2026-08-13 · Es werden keine Inhalte gespeichert
+  oder übertragen — die Prompts entstehen vollständig im Browser. Gespeichert wird
+  ausschließlich, ob Sie die Kurzansicht gewählt haben.</p>
 </footer>
 
 </div><!-- /wrap -->
 
 <script>
 "use strict";
+
+/* Kompaktmodus: blendet alle Erklaerungen aus, laesst die beiden Werkzeuge stehen.
+   Die Wahl bleibt im Browser gespeichert (kein Server, keine Uebertragung). */
+function setModus(kompakt){
+  document.body.classList.toggle("kompakt", kompakt);
+  var b=document.getElementById("modus");
+  b.textContent = kompakt ? "Mit Erklärungen" : "Nur Werkzeug";
+  b.title = kompakt
+    ? "Erklärungen, Beispiele und Empirie wieder einblenden"
+    : "Alles ausblenden außer den beiden Prompt-Generatoren";
+  try{ localStorage.setItem("gekko-modus", kompakt ? "kompakt" : "voll"); }catch(e){}
+}
+function toggleModus(){ setModus(!document.body.classList.contains("kompakt")); }
+try{ if(localStorage.getItem("gekko-modus")==="kompakt"){
+  document.addEventListener("DOMContentLoaded", function(){ setModus(true); });
+} }catch(e){}
 
 function parseLines(id){
   return document.getElementById(id).value.split("\n")
