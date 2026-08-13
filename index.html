@@ -76,6 +76,11 @@
     color:var(--muted);font-size:.85rem}
   .motto{font-size:1.05rem;color:var(--ink);font-weight:600;margin-bottom:6px}
   @media (max-width:600px){ h1{font-size:1.45rem} body{font-size:15px} }
+  /* Schmale Schirme: Tabellen scrollen in sich, statt die Seite zu sprengen */
+  @media (max-width:768px){
+    table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    th,td{min-width:7em}
+  }
 </style>
 </head>
 <body>
@@ -129,7 +134,8 @@ oder KI-Antworten — wird in fünf Felder gelegt. Weniger reicht nicht (siehe
   <tr><td><b>2 Kontext</b></td><td>Für welchen Betrieb, Prozess, Personenkreis, Zeitraum gilt es?</td>
       <td>Geltungsangaben hierher, nicht in Feld&nbsp;3. Nicht ableitbar → „unklar“.</td></tr>
   <tr><td><b>3 Evidenzbasis</b></td><td>Worauf beruht es — Erfahrung, Betriebsdaten, Vorschrift, Studie, KI-Antwort?</td>
-      <td>Herkunft <b>und</b> Qualitätsvermerk („Einzelaussage, keine Zahlen genannt“).</td></tr>
+      <td><b>Quelle + Kennzahl + Stichprobe</b>, dazu ein Qualitätsvermerk („Einzelaussage,
+      keine Zahlen genannt“). Nur Herkunft und Qualität — Geltungsangaben in Feld&nbsp;2.</td></tr>
   <tr><td><b>4 Gegenprobe</b></td><td>Welche realistische Situation könnte die Aussage schwächen?</td>
       <td>Eine Frage, an der sich die Aussage bewähren muss.</td></tr>
   <tr><td><b>5 Bruchbedingung</b></td><td>Woran würden wir erkennen, dass sie nicht mehr gilt?</td>
@@ -140,6 +146,18 @@ oder KI-Antworten — wird in fünf Felder gelegt. Weniger reicht nicht (siehe
 <div class="rule"><b>Feld 3 ist das Feld, das man am ehesten weglässt — und ohne das nichts
 funktioniert.</b> Im Test war ohne Evidenzbasis keine einzige von 13 Aussagen für Dritte
 beurteilbar; mit Evidenzbasis alle 16.</div>
+
+<div class="rule"><b>„Laut Studie“ ist keine Evidenzangabe.</b> In einem Test mit 50 Aussagen
+machte es für die Entscheidung <i>keinen Unterschied</i>, ob eine Aussage als studienbasiert
+oder als Einzelmeinung geführt war — solange die Quelle unbestimmt blieb („eine
+Branchenstudie“, „ein Forschungsinstitut“). Übertragbar wurden Aussagen erst mit
+<b>Institution, Kennzahl und Stichprobe zusammen</b>.</div>
+
+<div class="rule"><b>Feld 2 leert sich, wenn man nicht aufpasst.</b> Sobald das Evidenzfeld
+da ist, zieht es die Aufmerksamkeit auf sich: Im selben Test stand bei einem Bearbeiter in
+47 von 50 Fällen nur noch „unklar“ im Kontextfeld, obwohl die Aussagen Geltungsangaben
+enthielten („in vielen deutschen Lagern“, „derzeit“).
+Merksatz: <i>Wo gilt es → Feld 2. Woher weiß ich es → Feld 3.</i></div>
 
 <h3>Status einer Annahme</h3>
 <p>
@@ -260,6 +278,33 @@ kein Datenmodell, keine Modell- oder Technologiewahl).</p>
   <p>Und ein gutes Muster für Feld 5, das ohne jede Studie auskommt — aus demselben
   Test: <i>„Wenn in eingerichteten Peer-Netzwerken kein tatsächlicher Austausch
   stattfindet.“</i> Das kann man nach drei Monaten einfach nachsehen.</p>
+
+  <h3>Der gefährlichere Verwandte: Definitions- und Sollsätze</h3>
+
+  <p>Werturteile werden wenigstens abgelehnt. Es gibt eine zweite Satzsorte, die
+  schlimmer ist, weil sie <b>grün durchgeht</b>:</p>
+
+  <blockquote>„Weiterbildungsmentoren <b>sollen</b> Beschäftigte beim Lernen unterstützen.“
+  <span class="q">„… <b>werden dargestellt als</b> niedrigschwellige Ansprechpersonen.“ ·
+  „Lernbegleitung <b>kann</b> dort wirksam sein, wo …“</span></blockquote>
+
+  <p>In einem Test mit 50 Logistik-Aussagen waren <b>alle fünf</b>, die als übertragbar
+  durchgingen, von dieser Sorte — Rollen-, Zweck- oder Sollbeschreibungen, keine
+  Tatsachenbehauptungen. Sie passieren die Prüfung nicht, weil sie belegt wären, sondern
+  weil an ihnen <b>nichts zu widerlegen ist</b>. Eine Definition gilt überall. Bei vier
+  der fünf hatte die zweite Prüf-KI vermerkt, der Satz liege „zwischen Behauptung und
+  Zweckbeschreibung“ — der entscheidende Schritt übersah es trotzdem.</p>
+
+  <div class="rule"><b>Erkennungsmerkmale:</b> <i>soll · wird dargestellt als · gilt als ·
+  ist gedacht als · kann … sein</i>. Wer so etwas findet, hat keine Erkenntnis vor sich,
+  sondern eine Beschreibung dessen, was gemeint ist.</div>
+
+  <p><b>Was zu tun ist:</b> Solche Sätze gehören in die Projektbeschreibung (Begriffe,
+  Rollen, Ziele) — nicht in den Bestand geprüfter Behauptungen. Soll eine Wirkung behauptet
+  werden, muss sie umformuliert werden: aus „Mentoren sollen motivieren“ wird
+  <i>„Nach Einführung des Mentorings meldeten sich an Standort A doppelt so viele
+  Beschäftigte zu Kursen an wie im Vorjahr.“</i> Das ist prüfbar. Das andere ist eine
+  Absichtserklärung.</p>
 </div>
 
 <h3>Options-Prompt erzeugen</h3>
@@ -286,9 +331,10 @@ B-021 | Ausbilder in KMU haben keine Prompting-Kenntnisse. | lokal bestätigt"><
 
 <div class="card empirie">
   <h3 style="margin-top:0">Empirisch geprüft</h3>
-  <p>Drei präregistrierte Tests (Kriterien vor den Läufen festgelegt, Auswertung mechanisch)
-  an 13, später 16 realen Aussagen aus Ausbildungspraxis und einem Mentoren-Praxisbeitrag,
-  mit drei unabhängigen KI-Systemen:</p>
+  <p>Vier präregistrierte Tests (Kriterien jeweils vor den Läufen festgelegt, Auswertung
+  mechanisch) an 13, später 16 realen Aussagen aus Ausbildungspraxis und einem
+  Mentoren-Praxisbeitrag, zuletzt an 50 branchentypischen Logistik-Aussagen aus fünf
+  Themenfeldern — mit drei unabhängigen KI-Systemen:</p>
   <ul>
     <li><b>Vier Felder reichen nicht:</b> ohne Evidenzbasis blieb in 12/13 Fällen
         entscheidungsrelevante Information übrig; 0/13 Aussagen waren für Dritte beurteilbar.</li>
@@ -301,6 +347,18 @@ B-021 | Ausbilder in KMU haben keine Prompting-Kenntnisse. | lokal bestätigt"><
         derselbe Satz wurde in drei unabhängigen Bearbeitungen drei Mal verschieden
         eingeordnet; die Mehrdeutigkeit wurde nur in einem von zwei Durchgängen gemeldet.
         Daher die Kennzeichnungspflicht durch den Menschen.</li>
+    <li><b>Die Struktur hält auch in der Logistik und bei 50 Aussagen:</b> Restinformation
+        2/50, alle 50 beurteilbar, keine leeren Verneinungen. Der vorab vermutete
+        Schwachpunkt — Mengengerüst und Anlagenbezug („bei 800 Picks/Stunde“) als eigener
+        Informationstyp — trat kein einziges Mal auf.</li>
+    <li><b>„Laut Studie“ wirkt nicht:</b> ob eine Aussage als studienbasiert oder als
+        Einzelmeinung geführt war, entschied nichts, solange die Quelle unbestimmt blieb
+        (2/25 gegenüber 3/25). Wirksam ist erst Institution + Kennzahl + Stichprobe.
+        Das präzisiert den Punkt darüber.</li>
+    <li><b>Definitions- und Sollsätze gehen fälschlich als übertragbar durch</b> (Abschnitt
+        in Ebene 2): alle fünf durchgewinkten Aussagen des vierten Tests waren von dieser Sorte.</li>
+    <li><b>Das Kontextfeld leert sich neben dem Evidenzfeld</b> — bei einem Bearbeiter
+        47/50 Mal nur „unklar“. Daher die Feld-2-Regel in Ebene 1.</li>
   </ul>
   <h3>Konzept ohne Test</h3>
   <ul>
@@ -311,19 +369,31 @@ B-021 | Ausbilder in KMU haben keine Prompting-Kenntnisse. | lokal bestätigt"><
   </ul>
   <h3>Bekannte Grenzen</h3>
   <ul>
-    <li>Aussagen mit Rechts-/Vorschriftenbezug: ungetestet.</li>
+    <li>Aussagen mit Rechts-/Vorschriftenbezug: ungetestet (auch im vierten Test nicht aufgetaucht).</li>
     <li>KI-Systeme trennen „belegt“ von „unbelegt“, aber nicht „stark“ von „mittel belegt“ —
         die feine Abstufung setzt ein Mensch.</li>
     <li>Die Grenze „nicht übertragbar“ vs. „nicht entscheidbar“ war nicht in jedem Lauf stabil;
         verlässlich ist die Nicht-Übernahme selbst. Wer zögert, prüft eine Stufe tiefer.</li>
+    <li><b>O-Ton aus der Praxis:</b> alles bisher Geprüfte war schriftlich und ausformuliert.
+        Wie die Struktur mit dem umgeht, was in einem Gespräch tatsächlich gesagt wird —
+        halbe Sätze, Andeutungen, Nebenbemerkungen — ist offen. Das zeigt nur die Anwendung.</li>
   </ul>
+
+  <div class="rule"><b>Eine Warnung, die nicht die Methode betrifft, sondern die Beschaffung:</b>
+  Für den vierten Test wurden 50 Aussagen per KI-Recherche zusammengetragen. Keine einzige
+  der 50 Quellenangaben enthielt eine überprüfbare Fundstelle; in einer Stichprobe von acht
+  waren sieben nicht verifizierbar, eine konkret zugeschriebene Verbandsangabe ließ sich
+  nirgends finden. Die Sätze klangen branchentypisch und plausibel — nur ließ sich zu keinem
+  sagen, wer ihn wo gesagt hat. <b>Einen Behauptungsbestand kann man sich nicht
+  recherchieren lassen.</b> Er muss aus Interviews, Protokollen und namentlich benannten
+  Studien kommen.</div>
 </div>
 
 <footer>
   <p class="motto">Die KI prüft und darf Konsequenzen als Empfehlung markieren.
   Sie entscheidet weder über fachliche Freigabe noch über technische Umsetzung.
   Das tut das Projektteam.</p>
-  <p>GEKKO-Prüfwerkzeug v1.0 · Stand 2026-08-12 · Es werden keine Daten gespeichert
+  <p>GEKKO-Prüfwerkzeug v1.1 · Stand 2026-08-13 · Es werden keine Daten gespeichert
   oder übertragen — die Prompts entstehen vollständig im Browser.</p>
 </footer>
 
@@ -360,15 +430,16 @@ function buildE1(){
 "Ab jetzt prüfst du nur. Du erzeugst nichts Neues.\n\n"+
 "Ich gebe dir Aussagen aus einem Projektkontext (betriebliche Weiterbildung / Mentoring / Logistik). Trage für jede Aussage genau fünf Felder ein:\n\n"+
 "1. Behauptung — was wird konkret behauptet? (ein Satz)\n"+
-"2. Kontext — für welchen Betrieb, Prozess, Personenkreis, Zeitraum gilt es, soweit aus dem Material ableitbar? Sonst: \"unklar\".\n"+
-"3. Evidenzbasis — worauf beruht es (Erfahrung, Betriebsdaten, Vorschrift, Studie, KI-Antwort), mit ehrlichem Qualitätsvermerk? Sonst: \"unklar\".\n"+
+"2. Kontext — für welchen Betrieb, Prozess, Personenkreis, Zeitraum gilt es, soweit aus dem Material ableitbar? ALLE Geltungsangaben aus der Aussage gehören hierher (z. B. \"in vielen deutschen Lagern\", \"derzeit\"), nicht in Feld 3. Sonst: \"unklar\".\n"+
+"3. Evidenzbasis — worauf beruht es? Nenne QUELLE, KENNZAHL und STICHPROBE, soweit angegeben (z. B. \"Verbandsstudie, 604 befragte Unternehmen, 41 Prozent\"), dazu einen ehrlichen Qualitätsvermerk. Fehlen Kennzahl oder Stichprobe, schreibe das ausdrücklich hin (z. B. \"Studie genannt, aber ohne Zahl und Stichprobe\"). Nur Herkunft und Qualität — keine Geltungsangaben. Sonst: \"unklar\".\n"+
 "4. Gegenprobe — eine realistische Frage, an der sich die Aussage bewähren muss.\n"+
 "5. Bruchbedingung — ein BEOBACHTBARER Zustand oder ein MESSBARES Ereignis, bei dem die Aussage nicht mehr verwendet werden darf. Eine bloße Verneinung der Behauptung ist ungültig. Wenn du nichts Beobachtbares formulieren kannst, schreibe \"nicht formulierbar\".\n\n"+
 "Melde zusätzlich ehrlich für jede Aussage:\n"+
 "- Rest: entscheidungsrelevante Information, die in keines der fünf Felder passt.\n"+
 "- Doppelt: Information, die in mehr als ein Feld passt — nenne beide Felder.\n"+
 "- Verweis: hängt die Aussage an einer anderen der gegebenen Aussagen?\n"+
-"- Empfehlung: steckt ein Vorschlag darin, der keine Aussage über die Wirklichkeit ist? Trenne ihn ab.\n\n"+
+"- Empfehlung: steckt ein Vorschlag darin, der keine Aussage über die Wirklichkeit ist? Trenne ihn ab.\n"+
+"- Satztyp: Ist die Aussage überhaupt eine Tatsachenbehauptung — oder eine Bewertung (\"ist sinnvoll\", \"ist besser\") bzw. eine Definitions-/Sollbeschreibung (\"soll\", \"wird dargestellt als\", \"gilt als\")? Wenn ja, kennzeichne sie als NICHT-TATSACHENBEHAUPTUNG und sage, was an ihr überhaupt widerlegbar wäre.\n\n"+
 "Regeln: Arbeite nur mit dem, was ich dir gebe. Erfinde kein sechstes Feld. Repariere nichts. Keine Verbesserungsvorschläge, keine Zusammenfassung, keine technische Lösung. Wenn etwas unklar ist, schreibe \"unklar\", statt es plausibel zu machen. Du lieferst Befunde. Ich entscheide.";
   var out;
   if(lines.length===0){
