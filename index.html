@@ -481,7 +481,9 @@ function buildE1(){
       var src=(p[1]||"Quelle nicht angegeben").trim();
       return (i+1)+". [Quelle: "+src+"] \""+claim+"\"";
     }).join("\n");
-    out=kern+"\n\nAUSSAGEN:\n\n"+mat+"\n\nBeginne mit Aussage 1.";
+    out=kern+"\n\nAUSSAGEN:\n\n"+mat+
+      "\n\nBearbeite ALLE oben aufgeführten Aussagen, eine nach der anderen, "+
+      "und höre nicht nach der ersten auf.";
   }
   showOut("e1-out","e1-copy",out);
 }
