@@ -209,20 +209,35 @@ die Inhalte entstanden sind. Möglichst eine <b>andere KI</b> als die erzeugende
 Prompt erneut setzen oder Modell wechseln.</div>
 
 <h3>Welches Modell? — Eignungstest in einer Minute</h3>
-<p>Nicht jede KI taugt als Prüfer, und der Unterschied ist größer als gedacht: In einem Lauf
-über 16 Aussagen erkannten zwei von drei Modellen dieselben fünf Nicht-Tatsachenbehauptungen.
-Das dritte erkannte <b>keine einzige</b> und stufte Rollen-, Regel- und Bewertungssätze
-durchgehend als Tatsachenbehauptung ein — lauter grüne Haken statt Befunde. Das fällt nur
-auf, wenn man es prüft.</p>
+<p>Nicht jede KI taugt als Prüfer, und der Unterschied ist größer als gedacht: In drei Läufen
+über dieselben 16 Aussagen waren sich die Modelle bei elf einig — und uneins genau dort, wo
+es zählt. Als Nicht-Tatsachenbehauptung erkannten sie <b>2, 4 und 5</b> Sätze; von den
+sechs strittigen erkannten alle drei nur <b>einen</b> gemeinsam. Wer eine Rollen-, Regel- oder Sollaussage nicht als solche erkennt, füllt für sie eine
+Bruchbedingung aus und setzt grüne Haken, wo Befunde stehen müssten. Das fällt nur auf,
+wenn man es prüft.</p>
 
 <div class="card">
-  <p><b>Der Test:</b> Geben Sie dem Modell mit dem Prüfauftrag diesen einen Satz:</p>
-  <blockquote style="margin:10px 0;padding:10px 16px;background:var(--tag-bg);border-radius:8px">
-  „KI nur als Unterstützung, um Input zu erhalten, sonst hauptsächlich nur mit Mensch.“</blockquote>
-  <p><b>Erwartete Antwort:</b> Das ist keine Tatsachenbehauptung, sondern eine Soll- oder
-  Gestaltungsbeschreibung — sie kann nicht wahr oder falsch sein. Kommt stattdessen eine
-  ausgefüllte Bruchbedingung und „Tatsachenbehauptung“, ist das Modell für diese Arbeit
-  ungeeignet. Anderes Modell nehmen.</p>
+  <p><b>Der Test</b> — ein schneller Vorcheck, kein Eignungsnachweis: Geben Sie dem Modell mit
+  dem Prüfauftrag <b>drei Sätze aus Ihrem eigenen Material</b>, nicht von dieser Seite:</p>
+  <ul>
+    <li>einen klaren <b>Soll-, Regel- oder Rollensatz</b> („soll“, „gilt als“, „wird dargestellt als“)</li>
+    <li>eine klare <b>Bewertung</b> („ist sinnvoll“, „ist besser“)</li>
+    <li>eine klare <b>Tatsachenbehauptung</b> als Gegenprobe — die muss durchkommen</li>
+  </ul>
+  <p><b>Erwartete Antwort:</b> Die ersten beiden sind keine Tatsachenbehauptungen, sondern
+  Soll- oder Gestaltungsbeschreibungen — sie können nicht wahr oder falsch sein. In Feld 4 und
+  Feld 5 muss <b>„nicht anwendbar“</b> stehen. Bei der Gegenprobe dagegen müssen beide Felder
+  gefüllt sein — ein Modell, das auch dort verweigert, ist nicht vorsichtig, sondern für
+  diese Arbeit ungeeignet.</p>
+  <p><b>Durchgefallen ist das Modell, sobald dort eine empirische Bruchbedingung steht — auch
+  dann, wenn es den Satztyp richtig benannt hat.</b> Beides zusammen kommt vor: Das Modell
+  schreibt „keine Tatsachenbehauptung“ und füllt darunter trotzdem eine Messvorschrift ein.
+  Das ist kein halber Treffer. Es ist derselbe Fehler mit einem richtigen Etikett davor — und
+  damit schwerer zu bemerken, weil das Etikett Sorgfalt vortäuscht. Anderes Modell nehmen.</p>
+  <p><b>Warum aus Ihrem Material:</b> Ein Beispielsatz, der samt erwarteter Antwort auf dieser
+  Seite steht, prüft irgendwann nur noch, ob das Modell die Seite kennt. Ihr eigenes Material
+  senkt dieses Risiko — es beseitigt es nicht. Und das Ergebnis gilt für diese Kombination aus
+  Modell und Prompt, nicht für das Modell an sich: nach einem Versionswechsel neu prüfen.</p>
 </div>
 
 <p>Ein <b>zweiter Prüfer</b> bleibt sinnvoll für Aussagen, die eine Entscheidung tragen —
@@ -375,6 +390,9 @@ B-021 | Ausbilder in KMU haben keine Prompting-Kenntnisse. | lokal bestätigt"><
 
 <div class="card empirie">
   <h3 style="margin-top:0">Empirisch geprüft</h3>
+  <p class="rule"><b>Wofür genau:</b> Diese Befunde validieren die Fünffelder-Struktur und die
+  Prompt-Fassung, die bis 2026-09-01 auf dieser Seite stand. Der Eignungstest oben wurde danach
+  verschärft; für die verschärfte Fassung liegt noch keine eigene Prüfung vor.</p>
   <p>Vier präregistrierte Tests (Kriterien jeweils vor den Läufen festgelegt, Auswertung
   mechanisch) an 13, später 16 realen Aussagen aus Ausbildungspraxis und einem
   Mentoren-Praxisbeitrag, zuletzt an 50 branchentypischen Logistik-Aussagen aus fünf
@@ -387,11 +405,11 @@ B-021 | Ausbilder in KMU haben keine Prompting-Kenntnisse. | lokal bestätigt"><
     <li><b>Das Evidenzfeld wird wirklich benutzt:</b> mit Quelle belegte Aussagen wurden anders
         behandelt als unbelegte (3/3 gegenüber 12/13).</li>
     <li><b>Empfehlungs-Abtrennung und Verweise</b> wurden von beiden unabhängigen Bearbeitern korrekt getroffen.</li>
-    <li><b>Werturteile werden nicht von jedem Modell erkannt</b> (Fallbeispiel oben):
-        derselbe Satz wurde in drei unabhängigen Bearbeitungen drei Mal verschieden
-        eingeordnet. In einem späteren Lauf über 16 Aussagen stimmten dagegen zwei von
-        drei Modellen vollständig überein (16/16), das dritte erkannte keine einzige
-        Nicht-Tatsachenbehauptung. Nicht das Verfahren ist unzuverlässig, sondern die
+    <li><b>Werturteile werden nicht von jedem Modell erkannt:</b>
+        derselbe Satz wurde in drei unabhängigen Bearbeitungen verschieden eingeordnet.
+        In einem späteren Lauf über 16 Aussagen stimmten alle drei Modelle bei elf
+        überein; von den sechs Sätzen, die überhaupt einem als
+        Nicht-Tatsachenbehauptung auffielen, erkannten alle drei nur einen. Nicht das Verfahren ist unzuverlässig, sondern die
         Modellwahl entscheidet — daher der Eignungstest in Ebene 1 und die
         Kennzeichnung durch den Menschen bei allem, was eine Entscheidung trägt.</li>
     <li><b>Die Struktur hält auch in der Logistik und bei 50 Aussagen:</b> Restinformation
